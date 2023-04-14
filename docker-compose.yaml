@@ -1,0 +1,36 @@
+version: '3.8'
+services:
+  tomcat-10-0-11-jdk17:
+    image: tomcat:10.0-jdk17
+    ports:
+#     expose tomcat port 8080(container) on host as port 8888(host)
+      - "8888:8080"
+#     expose java debugging port 8000(container) on host as port 5050(host)
+      - "5005:5005"
+    command: "catalina.sh run"
+    volumes:
+#     "host path to the directory with .war file" / container tomcat directory with webapps
+      - "./target:/usr/local/tomcat/webapps"
+    environment:
+      JAVA_OPTS: "-agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=*:5005"
+#      JAVA_OPTS: "JAVA_OPTS -agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=*:5005"
+
+#1. Run this compose file
+#2. Check application is deployed here  http://localhost:8888/Tomcat_docker_debug-1.0-SNAPSHOT/api/hello-world
+#3. Run remote debug configuration:
+#4. open once more: http://localhost:8888/Tomcat_docker_debug-1.0-SNAPSHOT/api/hello-world
+
+
+
+
+
+
+
+
+
+
+
+
+
+#      JDPA_OPTS: "-agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=*:5050"
+#      JAVA_OPTS: "$JAVA_OPTS -Xdebug -Xrunjdwp:transport=dt_socket,server=y,suspend=n,address=*:5050"
